@@ -15,7 +15,9 @@ parser.add_argument("-l", "--log_file", default="deeplens.log",
                     help="The name of the log file.")
 parser.add_argument("-b", "--batch_size", default=16, type=int,
                     help="the initial size of the batch (number of data points "
-                         "for a single forward and batch passes")
+                         "for a single forward and batch passes)")
+parser.add_argument("-e", "--num_epochs", default=50, type=int,
+                    help="the number of epochs for training")
 
 input_rgb_images_dir = 'data/nyu_datasets_changed/input/'
 target_depth_images_dir = 'data/nyu_datasets_changed/target_depths/'
@@ -32,6 +34,7 @@ args = parser.parse_args(sys.argv[1:])
 is_debug = args.is_debug
 log_file = args.log_file
 batch_size = args.batch_size
+num_epochs = args.num_epochs
 
 train_on = 1000
 val_on = 100
@@ -120,7 +123,6 @@ for param in model.parameters():
 # train and validation sets after each epoch.
 
 loss_history = []
-num_epochs = 1
 train_acc_history = []
 val_acc_history = []
 epoch_history = []

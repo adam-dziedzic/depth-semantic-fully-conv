@@ -1,6 +1,6 @@
 import argparse
 import sys
-
+import os
 from model import *
 
 parser = argparse.ArgumentParser()
@@ -35,3 +35,18 @@ resume_file = 'model_best.pth.tar'
 checkpoint = torch.load(resume_file)
 model.load_state_dict(checkpoint['state_dict'])
 
+input_rgb_images_dir = 'data/deeplens/input/'
+listing = os.listdir(input_rgb_images_dir)
+
+data_dir = (
+    input_rgb_images_dir, target_depth_images_dir, target_labels_images_dir)
+
+input_transform = transforms.Compose(
+    [flow_transforms.Scale(228), flow_transforms.ArrayToTensor()])
+
+# Apply this transform on input, ground truth depth images and labeled images
+
+co_transform = flow_transforms.Compose([
+    flow_transforms.RandomCrop((480, 640)),
+    flow_transforms.RandomHorizontalFlip()
+])
