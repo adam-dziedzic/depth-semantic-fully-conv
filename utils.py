@@ -2,6 +2,7 @@ import shutil
 
 from model import *
 from nyu_dataset_loader import *
+from matplotlib import pyplot as plt
 
 matplotlib.use('Agg')
 
