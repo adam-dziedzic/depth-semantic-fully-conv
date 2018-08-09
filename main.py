@@ -155,7 +155,7 @@ if resume_from_file:
     else:
         print("=> no checkpoint found at '{}'".format(resume_file))
 
-for epoch in range(num_epochs):
+for epoch in range(start_epoch, num_epochs):
 
     # Uncomment When transfer learning the model parameters of the semantic
     # segmentation branch
