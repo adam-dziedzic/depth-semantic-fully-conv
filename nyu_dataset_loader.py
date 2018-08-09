@@ -13,7 +13,7 @@ class ListDataset(data.Dataset):
     def __init__(self, data_dir, listing, input_transform=None,
                  target_depth_transform=None,
                  target_labels_transform=None, co_transform=None,
-                 random_scale=None):
+                 random_scale=None, file_suffix="png"):
 
         self.data_dir = data_dir
         self.listing = listing
@@ -22,6 +22,7 @@ class ListDataset(data.Dataset):
         self.target_depth_transform = target_depth_transform
         self.target_labels_transform = target_labels_transform
         self.co_transform = co_transform
+        self.file_suffix = file_suffix
 
     def __getitem__(self, index):
         img_name = self.listing[index]
@@ -33,10 +34,11 @@ class ListDataset(data.Dataset):
                                                      imread(os.path.join(
                                                          target_depth_dir,
                                                          img_name[
-                                                         :-3] + 'png')), \
+                                                         :-3] + self.file_suffix)), \
                                                      imread(os.path.join(
                                                          target_label_dir,
-                                                         img_name[:-3] + 'png'))
+                                                         img_name[
+                                                         :-3] + self.file_suffix))
 
         if self.co_transform is not None:
             input_im, target_depth_im, target_label_im = self.co_transform(
